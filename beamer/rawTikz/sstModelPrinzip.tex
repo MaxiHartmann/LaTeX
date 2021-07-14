@@ -1,0 +1,41 @@
+% \documentclass{report}
+% \usepackage{pgfplots}
+% \usetikzlibrary{patterns}
+% \usetikzlibrary{decorations.pathmorphing,arrows,intersections}
+% \usetikzlibrary{pgfplots.fillbetween}
+% \usetikzlibrary{positioning}
+% 
+% \begin{document}
+\begin{tikzpicture}[scale=0.8, visible on=<4->]
+
+% Plate
+\filldraw[draw=black,thick,fill=cyan] (0,0) rectangle (10,3);
+
+% layer 1 (F1=1)
+\draw[name path=layer1] (2,0) .. controls (3,0.3) and (6,0.5) .. (10,0.6) ;
+\draw[name path=bottomline1] (2,0) -- (10,0.0) node[below, pos=0.5] {No-Slip Wall};
+\tikzfillbetween[of=layer1 and bottomline1]{red,opacity=0.5};
+
+% layer 2 (Blending-Region)
+\draw[name path=layer2] (1,0) .. controls (2,1.0) and (6,1.1) .. (10,1.3);
+\draw[name path=bottomline2,line width=0.7mm,red] (2,0) -- (10,0.0);
+\tikzfillbetween[of=layer2 and bottomline2]{red, opacity=0.5};
+\draw[line width=0.7mm,black] (0,0) -- (2,0);
+
+% Beschriftungen
+\node[align=left,anchor=north] at (1,0) {Slip Wall};
+\node[align=left,anchor=north] at (6,2) {$k-\varepsilon$ ($F_1=0$)};
+\draw[name path=layer1] (2,0) .. controls (3,0.3) and (6,0.5) .. (10,0.6) 
+    node[below,pos=0.8,sloped] {$k-\omega$ ($F_1=1$)};
+\draw[black] (1,0) .. controls (2,1.0) and (6,1.1) .. (10,1.3) 
+    node[below, pos=0.7, sloped] {Blending Region};
+
+    \draw[pattern=north east lines, pattern color=black] 
+        (2,0) rectangle (10,-0.15);
+
+% inlet profile
+\filldraw[draw=black,thick,fill=cyan] (-1,0) rectangle (0,3);
+\foreach \y in {0,0.3,...,3.01}{
+    \draw[-stealth] (-1,\y) -- +(1,0);}
+\end{tikzpicture}
+% \end{document}

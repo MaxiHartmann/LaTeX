@@ -1,0 +1,254 @@
+% \documentclass[10pt,handout]{beamer}
+\documentclass[10pt,xcolor=dvipsnames]{beamer}
+\usepackage[german]{babel}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usetheme{Boadilla}
+\setbeamercovered{transparent}
+\usepackage{appendixnumberbeamer}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{itemize subitem}{\rule[0.5ex]{0.5ex}{0.6ex}}
+\definecolor{UBCblue}{rgb}{0.04706, 0.13725, 0.26667} % UBC Blue (primary)
+\usecolortheme[named=UBCblue]{structure}
+\usefonttheme{serif}
+
+\usepackage[utf8]{inputenc}
+\usepackage[many]{tcolorbox}
+
+% Pakete für Mathematikmodus:
+\usepackage{amsmath, amssymb, nccmath}
+
+% Zum Setzen von Einheiten
+\usepackage{siunitx}
+\sisetup{output-decimal-marker = {.},
+            locale = US}
+\DeclareSIUnit{\million}{\text{Mio.}}
+\usepackage{physics}
+\hypersetup{
+    colorlinks=false,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\usepackage{pdfpages}
+
+\title[Thesis]{\vspace{2cm} \\ TITLE}
+\subtitle{subtitle}
+\author[M. Hartmann]{Maximilian Hartmann \\ %
+	\texttt{\scriptsize example@mail.com}}
+\institute[Group A]{institution}
+\date[Februar 2021]{11. Februar 2021}
+
+% Customisation: Table of Content
+\setbeamertemplate{section in toc}{%
+    \leavevmode\leftskip=1.75ex%
+    \llap{%
+        \usebeamerfont*{section number projected}%
+        \usebeamercolor[bg]{section number projected}%
+        \vrule width2.25ex height1.85ex depth.4ex%
+        \hskip-2.25ex%
+        \hbox to2.25ex{\hfill\color{fg}\inserttocsectionnumber\hfill}}%
+        \kern1.25ex\inserttocsection\par}
+
+% PGFplots and TikZ
+\usepackage{pgfplots}
+\DeclareUnicodeCharacter{2212}{−}
+\usepgfplotslibrary{groupplots,dateplot}
+\usetikzlibrary{arrows,decorations.markings,patterns}
+\usetikzlibrary{decorations.pathmorphing,arrows,intersections}
+\usetikzlibrary{pgfplots.fillbetween}
+\usetikzlibrary{positioning}
+\usetikzlibrary{spy}
+\usetikzlibrary{calc}
+\usetikzlibrary{through}
+\pgfplotsset{compat=newest}
+\pgfplotsset{every axis/.append style={
+		%mark size=0.5pt,
+		line width=0.5pt,
+		tick style={line width=.6pt},
+        	label style={font=\tiny},
+		tick label style={font=\tiny},
+		legend style={font=\tiny},
+		}}
+\pgfkeys{/pgf/number format/.cd,1000 sep={\,}}
+% tikzpicture overlays
+\tikzset{
+    invisible/.style={opacity=0,text opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+        \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} 
+	% \pgfkeysalso doesn't change the path
+        },
+    }
+\usepackage{pgffor}
+\usepackage{adjustbox}
+\usepackage{textpos}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikzextern/]
+\usepackage[mode=buildnew]{standalone}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{frame}
+\titlepage
+\begin{textblock*}{2cm}(0.5cm,-8.5cm)
+	optional logo could be planted here
+\end{textblock*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Inhalt}
+\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Einleitung}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{Motivation}
+% \subsection{Ziele}
+\begin{frame}
+    \frametitle{\secname}
+\framesubtitle{Motivation und Ziele}
+    \begin{itemize}
+        \item Turbulenz hat maßgeblichen Einfluss auf Impuls- und Wärmetransport 
+            \pause
+        \item Allgemeiner Ansatz: statistische Beschreibung der Auswirkungen von Turbulenz \\
+            \begin{itemize}
+                \item subitem 1
+                \item subitem 2
+                    \pause
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Turbulenter Impulstransport}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{SST-Modell}
+\begin{frame}
+    \frametitle{\secname}
+    \framesubtitle{\subsecname}
+    \begin{itemize}
+        \item<1-> Modellierung des turbulenten Spannungstensors: $\tau_{t,ij}$
+        \item<2-> Shear-Stress-Transport Modell (Menter, 2003)
+        \item<3-> Kombination zwischen $k$-$\varepsilon$-Modell in wandferne und
+            $k$-$\omega$-Modell in wandnähe (ohne CDT)
+    \end{itemize}
+    \onslide<4->{
+    \small
+    \begin{equation} \label{eq:kTransport}
+        \frac{\text{D} \rho k}{\text{D} t} 
+        =  
+        P_k
+        - \beta^* \rho \omega k 
+        + \frac{\partial }{\partial x_j} \left[ \left( \mu + \sigma_{k} \mu_{t} \right) \frac{\partial k}{\partial x_j} \right]
+    \end{equation}
+    \begin{equation} \label{eq:omegaTransport}
+        \begin{split}
+            \frac{\text{D} \rho \omega}{\text{D} t} = 
+            \frac{\gamma}{\nu_t} 
+            P_k
+            - \beta \rho \omega^2 + \frac{\partial }{\partial x_j} \left[ \left( \mu + \sigma_{\omega} \mu_{t} \right) \frac{\partial \omega}{\partial x_j} \right] \\
+            + \underbrace{2 \rho (1-F_1) \sigma_{\omega2} \frac{1}{\omega} \frac{\partial k}{\partial x_j} \frac{\partial \omega}{\partial x_j}}_{CDT}
+        \end{split}
+    \end{equation}
+    }
+    \onslide<5->{
+    \begin{columns}[c]
+        \begin{column}{0.5\textwidth}
+            \vspace{0.5cm}
+            \begin{adjustbox}{max totalsize={1\textwidth}{.5\textheight},center} 
+                \input{rawTikz/sstModelPrinzip.tex}
+            \end{adjustbox}
+        \end{column}
+        \begin{column}{0.50\textwidth}
+            \centering
+            \begin{equation}\label{eq:F1}
+                \phi = F_1 \phi_1 + (1 - F_1) \phi_2
+            \end{equation}
+            \scriptsize
+            \begin{tabular}{|c|c|c|c|c|c|c|}
+                \hline 
+                $\phi$ & $\beta$ & $\sigma_k$ & $\sigma_\omega$ & $\gamma$ & $a_1$ & $\beta^*$ \\ 
+                \hline 
+                $\phi_1$ & $0.075$ & $0.5$ & $0.5$ & $5/9$ & $0.31$ & $0.09$ \\ 
+                \hline 
+                $\phi_2$ & $0.0828$ & $1$ & $0.856$ & $0.44$ & $0.31$ & $0.09$ \\ 
+                \hline 
+            \end{tabular} 
+            \normalsize
+        \end{column}
+    \end{columns}
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\renewcommand{\theframenumber}{\alph{framenumber}}
+
+% Literaturverzeichnis:
+% \begin{frame}[allowframebreaks]{References}
+%     \def\newblock{}
+%     \bibliographystyle{plain}
+%     \bibliography{mybib}
+% \end{frame}
+
+% \section{Randbedingungen}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Modellkonstanten: ktOmt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \frametitle{Anhang}
+    \framesubtitle{Überblick der Modellkonstanten}
+    Zusammenfassen der Konstanten: \\
+    \begin{itemize}
+        \item $C_{P1} = \left( \frac{C_{P1} f_{P1}}{2}  - 1 \right)_{AKN}$
+        \item $C_{D1} = \left( \frac{C_{D1} f_{D1}}{2}  - 1 \right)_{AKN}$
+        \item $C_{P2} = \left( C_{P2} f_{P2} \right)_{AKN}$
+        \item $C_{D2} = \left( C_{D2} f_{D2} \right)_{AKN}$
+    \end{itemize}
+    \vspace{1cm}
+    \begin{scriptsize}
+        \begin{table}
+            \centering
+            \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                Autor & $C_\lambda$ & $C_{P1}$ & $C_{D1}\beta_\theta^*$ & $C_{P2}$ & $C_{D2}\beta^*$ & $\sigma_{k_\theta}$ & $\sigma_{\omega_\theta}$  & $C_\mu=\beta^*$ & $\beta_\theta^*$ \\ 
+                \hline  \hline 
+                Rochhausen & $0.147$ & $-0.35$ & $0.07$ & $0.28$ & $0.05$ & $5$ & $5$ & $0.09$ & $0.135$ \\ 
+                \hline 
+                Cerroni & $0.1$ & $0.1$ & $0.036$ & $0.6$ & $0.072$ & $1.4$ & $1.4$ & $0.09$ & $0.09$ \\ 
+                \hline 
+                Abe & $0.1$ & $-0.05$ & $0$ & $0.6$ & $0.081$ & $1.6$ & $1.6$ & $0.09$ & $0.09$ \\ 
+                \hline 
+            \end{tabular}
+            \caption{Modellkonstanten des Wirbelleitfähigkeitsmodells}
+        \end{table}
+    \end{scriptsize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wandrandbedingungen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \frametitle{Anhang}
+    \framesubtitle{Wandrandbedingung}
+    \subsection{Wand}
+    Wandrandbedingung aus Abe:
+    \begin{equation}
+        \varepsilon_{\theta,wall} = 
+        \alpha \left( \frac{\partial \sqrt{\overline{T'^2}}}{ \partial n} \right)^2
+        \approx \frac{\nu_w}{Pr} \frac{\overline{T'^2}}{y^2}
+    \end{equation}
+    mit $\alpha = \nu/\Pr$, $T'^2 = 2k_{\theta}$ und $\varepsilon_{\theta,wall}=\beta_\theta^* k_{\theta} \omega_{\theta,wall} $:
+    \begin{equation}
+        \omega_{\theta,wall} 
+        = \frac{\nu_w}{Pr} \frac{2 k_{\theta}}{\beta_\theta^* k_{\theta} y^2}
+        = \frac{\nu_w}{Pr} \frac{2 }{\beta_\theta^* y^2}
+    \end{equation}
+\end{frame}
+\end{document}%
