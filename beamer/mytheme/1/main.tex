@@ -1,0 +1,53 @@
+\documentclass[aspectratio=169]{beamer}
+
+\author{Max Hartmann}
+\title{Template 1}
+\date{\today}
+
+\usetheme[headheight=1cm, footheight=1cm]{boxes}
+% \addheadbox{section in head}{
+%     \hskip0.3cm\includegraphics[height=0.9cm]{logo_25x25mm.png}
+%     \newline sda\\
+%     \hskip0.3cm\rule{\textwidth}{0.4pt}
+% }
+
+\usetheme{Warsaw}
+
+% \setbeamertemplate{headline}{%
+%     \leavevmode%
+%     \hbox{
+%         \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{palette quaternary}%
+%         \insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}
+%         \end{beamercolorbox}%
+%     }
+% }
+
+% Beamer margin
+\setbeamersize
+{
+    text margin left=1cm,
+    text margin right=2cm
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{TITEL}
+This is a sentence in plain text.
+\begin{itemize}
+    \item Schwer
+    \item Schnell
+    \item Klein
+\end{itemize}
+Hier steht eine Gleichung im Fließtext: \(a=b\) \\
+Hier kommt eine Gleichungsumgebung:
+\begin{equation}
+a=b
+\end{equation}
+This is a sentence in plain text.
+\end{frame}
+
+\end{document}

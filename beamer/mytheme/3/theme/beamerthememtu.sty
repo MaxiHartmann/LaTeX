@@ -1,0 +1,59 @@
+% TEST THEME
+\mode<presentation>
+
+% Requirement
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+
+% Settings
+% \useinnertheme{mtu}
+
+% \useoutertheme{mtu}
+\setbeamertemplate{headline}{%
+\leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=8ex,dp=1.125ex,sep=0.2cm]{palette quaternary}%
+        \includegraphics[height=0.5cm]{logo_25x25mm.png}
+        \vphantom{g}%
+        \par\hspace*{-\dimexpr0.5\paperwidth-0.5\textwidth}
+        \rule[0.5\baselineskip]{\paperwidth}{0.7pt}
+        \par\vspace*{-\baselineskip}% <-- reduce vertical space after rule
+    % \insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}
+    \end{beamercolorbox}%
+  }
+}
+
+% \setbeamertemplate{frametitle}
+% {
+%     \nointerlineskip
+%     \begin{beamercolorbox}[sep=0.3cm,ht=1.8em,wd=\paperwidth]{frametitle}
+%         \vbox{}\vskip-2ex%
+%         \strut\insertframetitle\strut
+%         \hfill
+%         %\raisebox{-0.8mm}{\includegraphics[height=0.5cm]{logo}}
+%         \vskip-0.8ex%
+%     \end{beamercolorbox}
+% }
+
+
+
+\setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[sep=1em,wd=\paperwidth,leftskip=0.5cm,rightskip=0.5cm]{footlinecolor}
+        text\hfill\insertshortauthor\hfill\insertpagenumber
+    \end{beamercolorbox}
+}%
+\setbeamertemplate{navigation symbols}{}
+
+
+
+% \usecolortheme{mtu}
+\definecolor{MidnightBlue}{RGB}{25,25,112}
+\definecolor{mygrey}{RGB}{180,180,180}
+\setbeamercolor{frametitle}{fg=MidnightBlue,bg=white}
+\setbeamercolor{title}{fg=MidnightBlue,bg=white}
+\setbeamercolor{section in head/foot}{bg=brown}
+\setbeamercolor{author in head/foot}{bg=brown}
+\setbeamercolor{date in head/foot}{fg=brown}
+\setbeamercolor{footlinecolor}{fg=mygrey, bg=white}
+
+\mode<all>
