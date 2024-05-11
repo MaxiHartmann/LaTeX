@@ -1,0 +1,28 @@
+\ProvidesPackage{beamerinnerthemeMTU}
+
+\mode<presentation>
+
+% Define inner theme settings...
+
+% Title page
+\defbeamertemplate*{title page}{MTU}[1][]{
+    \vspace{1cm}
+    \begin{beamercolorbox}[wd=12cm,leftskip=0cm,sep=0pt]{}
+        \includegraphics[width=\the\paperwidth]{titlepage_photo.png}
+    \end{beamercolorbox}%
+    \vspace{.1cm}
+    \begin{beamercolorbox}[wd=12cm,leftskip=1cm,sep=0pt,#1]{title page header}
+        \usebeamerfont{title}\inserttitle\par%
+    \end{beamercolorbox}%
+    \vspace{.1cm}
+    \begin{beamercolorbox}[wd=12cm,leftskip=1cm,#1]{author}
+        \usebeamerfont{author}\insertauthor%
+    \end{beamercolorbox}
+    \vspace{.1cm}
+    \begin{beamercolorbox}[wd=12cm,leftskip=1cm,#1]{date}
+        \usebeamerfont{author}\insertdate%
+    \end{beamercolorbox}
+    %\vfill
+}
+
+\mode<all>

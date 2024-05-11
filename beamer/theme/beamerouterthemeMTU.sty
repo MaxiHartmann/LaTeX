@@ -1,0 +1,54 @@
+\ProvidesPackage{beamerouterthemeMTU}
+
+\mode<presentation>
+
+% Define outer theme settings...
+
+% Footer
+% \setbeamercolor{custom1}{fg=magenta,bg=green}
+% \setbeamercolor{custom2}{fg=cyan,bg=purple}
+% \setbeamerfont{footline}{series=\bfseries, family=\ttfamily}
+% \setbeamertemplate{footline}{%
+%     \leavevmode%
+%     \begin{beamercolorbox}[wd=0.5\textwidth, sep=0.4em]{custom1}%
+%         \strut
+%     \end{beamercolorbox}%
+%     \begin{beamercolorbox}[wd=0.5\textwidth, sep=0.4em, right]{custom2}%
+%         \strut arbitrary text
+%     \end{beamercolorbox}%
+% }
+
+
+
+% Define header and footer
+\setbeamertemplate{headline}{
+    \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0ex]{palette tertiary}
+        % White space on left
+        \hspace*{0.5cm}
+        % Logo
+        \includegraphics[height=1cm]{logo.png}
+        % White space on right
+        \hfill
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=\paperwidth,ht=0.1cm,dp=0ex]{palette tertiary}
+        % Horizontal line
+        \centering
+        \rule{0.93\paperwidth}{0.4pt} % Thin gray line
+    \end{beamercolorbox}
+}
+\setbeamertemplate{footline}{
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}
+        % Date
+        \hspace*{0.5cm}\insertshortdate\hfill
+        % Title
+        \inserttitle\hfill
+        % Slide number
+        \insertframenumber\hspace*{0.5cm}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}
+        % Company Properties
+        \hspace*{0.5cm}
+        \textcolor{lightgray}{Company Properties ...}
+        \hfill
+    \end{beamercolorbox}
+}
